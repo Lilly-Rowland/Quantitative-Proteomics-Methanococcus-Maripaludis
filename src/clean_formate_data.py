@@ -3,7 +3,7 @@ import numpy as np
 import re
 
 
-file = "formate_dataset.xlsx"
+file = "data/formate_dataset.xlsx"
 
 # Read with 3 header rows
 df_wide = pd.read_excel(file, header=[0, 1, 2])
@@ -78,4 +78,4 @@ df = df_ratio_only.reindex(columns=['Gene names (ordered locus )', 'growth_rate'
 df = df.drop(columns=['sample', 'measure_type', 'block']) # remove these cols because they dont tell anytbing
 
 print(df.head())
-df.to_csv("formate_dataset_cleaned.csv", index=False)
+df.to_csv("data/formate_dataset_cleaned.csv", index=False)

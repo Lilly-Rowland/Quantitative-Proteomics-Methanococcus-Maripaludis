@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.stats import ttest_ind
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("formate_dataset_cleaned.csv")
+df = pd.read_csv("data/formate_dataset_cleaned.csv")
 
 df["log2_ratio"] = np.log2(df["value"])
 
