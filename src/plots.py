@@ -1,8 +1,16 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 import numpy as np
 import pandas as pd
 from pathlib import Path
 from utils import GENE_COL, safe_neglog10
+
+# Visual theming: seaborn base style + a small set of pretty colors
+sns.set(style="whitegrid")
+POS_COLOR = "#E64B35"   # warm orange/red for positive effects
+NEG_COLOR = "#4A90E2"   # cool blue for negative effects
+NEUTRAL_COLOR = "#9EA7AA"  # muted grey for non-significant
+DIV_CMAP = sns.diverging_palette(240, 10, as_cmap=True)
 
 
 def volcano_plot(
@@ -12,7 +20,7 @@ def volcano_plot(
     title,
     outpath=None,
     fc_thresh=0.5,
-    sig_thresh=0.05,
+    sig_thresh=0.1,
     label_top_n=0,
     gene_col=GENE_COL,
     show=False
@@ -33,14 +41,19 @@ def volcano_plot(
     sig_mask = (plot_df[p_col] < sig_thresh) & (plot_df[x_col].abs() >= fc_thresh)
 
     plt.figure(figsize=(8, 6))
-    plt.scatter(plot_df.loc[~sig_mask, x_col], plot_df.loc[~sig_mask, "neglog10_p"], s=12, alpha=0.6)
-    plt.scatter(plot_df.loc[sig_mask, x_col], plot_df.loc[sig_mask, "neglog10_p"], s=14, alpha=0.8)
+    pos_sig = sig_mask & (plot_df[x_col] > 0)
+    neg_sig = sig_mask & (plot_df[x_col] < 0)
+    non_sig = ~sig_mask
+
+    plt.scatter(plot_df.loc[non_sig, x_col], plot_df.loc[non_sig, "neglog10_p"], s=14, alpha=0.5, color=NEUTRAL_COLOR)
+    plt.scatter(plot_df.loc[neg_sig, x_col], plot_df.loc[neg_sig, "neglog10_p"], s=28, alpha=0.9, color=NEG_COLOR)
+    plt.scatter(plot_df.loc[pos_sig, x_col], plot_df.loc[pos_sig, "neglog10_p"], s=28, alpha=0.95, color=POS_COLOR)
 
     # reference lines
-    plt.axvline(0, linewidth=1)
-    plt.axvline(fc_thresh, linestyle="--", linewidth=1)
-    plt.axvline(-fc_thresh, linestyle="--", linewidth=1)
-    plt.axhline(-np.log10(sig_thresh), linestyle="--", linewidth=1)
+    plt.axvline(0, linewidth=1, color=NEUTRAL_COLOR)
+    plt.axvline(fc_thresh, linestyle="--", linewidth=1, color=NEUTRAL_COLOR)
+    plt.axvline(-fc_thresh, linestyle="--", linewidth=1, color=NEUTRAL_COLOR)
+    plt.axhline(-np.log10(sig_thresh), linestyle="--", linewidth=1, color=NEUTRAL_COLOR)
 
     plt.xlabel("log2 Fold Change")
     plt.ylabel(f"-log10({p_col})")
@@ -123,7 +136,21 @@ def plot_top_expressed_genes_heatmap(
         colorbar_label = "log2 expression"
 
     plt.figure(figsize=(max(8, heatmap_plot.shape[1] * 0.6), max(8, heatmap_plot.shape[0] * 0.3)))
-    im = plt.imshow(heatmap_plot, aspect="auto")
+    # use blue-red diverging colormap and symmetric scaling when centered
+    cmap = DIV_CMAP
+    try:
+        cmap.set_bad("black")
+    except Exception:
+        pass
+    masked = np.ma.masked_invalid(heatmap_plot.values)
+    if center_by_gene:
+        max_abs = np.nanmax(np.abs(heatmap_plot.values)) if heatmap_plot.size else None
+        if max_abs is None:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap)
+        else:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap, vmin=-max_abs, vmax=max_abs)
+    else:
+        im = plt.imshow(masked, aspect="auto", cmap=cmap)
     plt.colorbar(im, label=colorbar_label)
 
     plt.xticks(range(len(heatmap_plot.columns)), heatmap_plot.columns, rotation=90)
@@ -234,7 +261,20 @@ def plot_formate_vs_phosphate_heatmap_from_model(
         cbar_label = "log2 expression"
 
     plt.figure(figsize=(max(10, heatmap_plot.shape[1] * 0.45), max(8, heatmap_plot.shape[0] * 0.3)))
-    im = plt.imshow(heatmap_plot, aspect="auto")
+    cmap = DIV_CMAP
+    try:
+        cmap.set_bad("black")
+    except Exception:
+        pass
+    masked = np.ma.masked_invalid(heatmap_plot.values)
+    if center_by_gene:
+        max_abs = np.nanmax(np.abs(heatmap_plot.values)) if heatmap_plot.size else None
+        if max_abs is None:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap)
+        else:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap, vmin=-max_abs, vmax=max_abs)
+    else:
+        im = plt.imshow(masked, aspect="auto", cmap=cmap)
     plt.colorbar(im, label=cbar_label)
 
     plt.xticks(range(len(heatmap_plot.columns)), heatmap_plot.columns, rotation=90)
@@ -334,8 +374,20 @@ def plot_formate_vs_phosphate_simple_heatmap(
     # Plot
     # -------------------------
     plt.figure(figsize=(max(10, len(heatmap_plot.columns) * 0.4), 3))
-
-    im = plt.imshow(heatmap_plot, aspect="auto")
+    cmap = DIV_CMAP
+    try:
+        cmap.set_bad("black")
+    except Exception:
+        pass
+    masked = np.ma.masked_invalid(heatmap_plot.values)
+    if center_by_gene:
+        max_abs = np.nanmax(np.abs(heatmap_plot.values)) if heatmap_plot.size else None
+        if max_abs is None:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap)
+        else:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap, vmin=-max_abs, vmax=max_abs)
+    else:
+        im = plt.imshow(masked, aspect="auto", cmap=cmap)
     plt.colorbar(im, label=cbar_label)
 
     plt.xticks(range(len(heatmap_plot.columns)), heatmap_plot.columns, rotation=90)

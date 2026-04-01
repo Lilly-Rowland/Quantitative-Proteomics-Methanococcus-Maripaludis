@@ -19,7 +19,7 @@ from pathways import METHANOGENESIS_GENES, summarize_pathway_across_datasets, pl
 
 
 def shared_significant_hits(df_a, df_b, label_a, label_b, fc_col="log2FC", fdr_col="fdr",
-                            fdr_thresh=0.05, fc_thresh=0.5):
+                            fdr_thresh=0.1, fc_thresh=0.5):
     req_cols = {GENE_COL, fc_col, fdr_col}
     if not req_cols.issubset(df_a.columns) or not req_cols.issubset(df_b.columns):
         return pd.DataFrame()
@@ -109,7 +109,6 @@ def main(show_plots=False, fc_thresh=0.5):
                 title=f"Volcano Plot – {name1} {g1.upper()} vs {g2.upper()}",
                 outpath=outdir / f"{name1}_{g1}_vs_{g2}_volcano.png",
                 fc_thresh=fc_thresh,
-                sig_thresh=0.05,
                 label_top_n=10
                 , show=show_plots
             )
@@ -132,7 +131,6 @@ def main(show_plots=False, fc_thresh=0.5):
                 title=f"Volcano Plot – {name2} {g1.upper()} vs {g2.upper()}",
                 outpath=outdir / f"{name2}_{g1}_vs_{g2}_volcano.png",
                 fc_thresh=fc_thresh,
-                sig_thresh=0.05,
                 label_top_n=10
                 , show=show_plots
             )
@@ -169,7 +167,6 @@ def main(show_plots=False, fc_thresh=0.5):
             title=f"Volcano Plot – {name1} vs {name2} (full)",
             outpath=outdir / f"{name1}_vs_{name2}_full_volcano.png",
             fc_thresh=fc_thresh,
-            sig_thresh=0.05,
             label_top_n=10
             , show=show_plots
         )
@@ -239,7 +236,6 @@ def main(show_plots=False, fc_thresh=0.5):
             title=f"Volcano Plot – {name1} vs {name2} (model growth-rate controlled)",
             outpath=outdir / f"{name1}_vs_{name2}_growth_controlled_model_volcano.png",
             fc_thresh=fc_thresh,
-            sig_thresh=0.05,
             label_top_n=10
             , show=show_plots
         )

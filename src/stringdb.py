@@ -6,6 +6,7 @@ import io
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 from pathlib import Path
 
 try:
@@ -117,9 +118,11 @@ def plot_top_terms_bar(df_or_path, outpath=None, top_n=20, category=None, show=F
     labels = plot_df["description"].fillna(plot_df.get("term", plot_df.index)).astype(str)
     values = plot_df["neglog10_fdr"].values
 
+    sns.set(style="whitegrid")
+    BAR_COLOR = "#4A90E2"
     plt.figure(figsize=(8, max(4, len(values) * 0.35)))
     y = np.arange(len(values))
-    plt.barh(y, values, color="tab:blue", alpha=0.85)
+    plt.barh(y, values, color=BAR_COLOR, alpha=0.95)
     plt.yticks(y, labels)
     plt.xlabel("-log10(FDR)")
     plt.title(f"Top {len(values)} enriched terms")
@@ -163,8 +166,10 @@ def plot_terms_dotplot(df_or_path, outpath=None, top_n=30, category=None, show=F
     sizes = plot_df.get("number_of_genes", pd.Series(1, index=plot_df.index)).fillna(1).astype(float).values
     sizes = (sizes - sizes.min() + 1) / max(1.0, (sizes.max() - sizes.min() + 1e-6)) * 200
 
+    sns.set(style="whitegrid")
+    cmap = sns.color_palette("plasma", as_cmap=True)
     plt.figure(figsize=(8, max(4, len(plot_df) * 0.35)))
-    plt.scatter(x, y, s=sizes, c=x, cmap="viridis", alpha=0.8)
+    plt.scatter(x, y, s=sizes, c=x, cmap=cmap, alpha=0.9, edgecolors="#222222", linewidths=0.3)
     plt.yticks(y, plot_df["label"])
     plt.xlabel("-log10(FDR)")
     plt.title(f"STRING enrichment (top {len(plot_df)} terms)")
