@@ -14,10 +14,12 @@ from plots import (
     plot_formate_vs_phosphate_heatmap_from_model,
     plot_formate_vs_phosphate_simple_heatmap,
 )
+from stringdb import run_string_enrichment, make_enrichment_plots
+from pathways import METHANOGENESIS_GENES, summarize_pathway_across_datasets, plot_pathway_log2fc, plot_pathway_growth_trends
 
 
 def shared_significant_hits(df_a, df_b, label_a, label_b, fc_col="log2FC", fdr_col="fdr",
-                            fdr_thresh=0.05, fc_thresh=1.0):
+                            fdr_thresh=0.05, fc_thresh=0.5):
     req_cols = {GENE_COL, fc_col, fdr_col}
     if not req_cols.issubset(df_a.columns) or not req_cols.issubset(df_b.columns):
         return pd.DataFrame()
@@ -41,7 +43,7 @@ def shared_significant_hits(df_a, df_b, label_a, label_b, fc_col="log2FC", fdr_c
     return merged.sort_values([f"{fdr_col}_{label_a}", f"{fdr_col}_{label_b}"])
 
 
-def main():
+def main(show_plots=False, fc_thresh=0.5):
     file1 = "data/formate_dataset_cleaned.csv"
     file2 = "data/phosphate_dataset_cleaned.csv"
 
@@ -60,7 +62,7 @@ def main():
     plot_top_expressed_genes_heatmap(
         df1_bio,
         dataset_name=name1,
-        outpath=outdir / f"{name1}_top_expressed_genes_heatmap.png",
+        outpath=outdir / f"heatmaps/{name1}_top_expressed_genes_heatmap.png",
         top_n=30,
         center_by_gene=True
     )
@@ -68,7 +70,7 @@ def main():
     plot_top_expressed_genes_heatmap(
         df2_bio,
         dataset_name=name2,
-        outpath=outdir / f"{name2}_top_expressed_genes_heatmap.png",
+        outpath=outdir / f"heatmaps/{name2}_top_expressed_genes_heatmap.png",
         top_n=30,
         center_by_gene=True
     )
@@ -106,9 +108,10 @@ def main():
                 p_col="fdr",
                 title=f"Volcano Plot – {name1} {g1.upper()} vs {g2.upper()}",
                 outpath=outdir / f"{name1}_{g1}_vs_{g2}_volcano.png",
-                fc_thresh=1.0,
+                fc_thresh=fc_thresh,
                 sig_thresh=0.05,
                 label_top_n=10
+                , show=show_plots
             )
 
     for g1, g2 in comparisons_2:
@@ -128,9 +131,10 @@ def main():
                 p_col="fdr",
                 title=f"Volcano Plot – {name2} {g1.upper()} vs {g2.upper()}",
                 outpath=outdir / f"{name2}_{g1}_vs_{g2}_volcano.png",
-                fc_thresh=1.0,
+                fc_thresh=fc_thresh,
                 sig_thresh=0.05,
                 label_top_n=10
+                , show=show_plots
             )
 
     key1 = f"{name1}_xs_vs_s"
@@ -145,7 +149,7 @@ def main():
             fc_col="log2FC",
             fdr_col="fdr",
             fdr_thresh=0.05,
-            fc_thresh=1.0
+            fc_thresh=fc_thresh
         )
         overlap.to_csv(outdir / "shared_significant_genes_between_individual_analyses.csv", index=False)
         print("\nShared significant genes between individual analyses:")
@@ -164,9 +168,10 @@ def main():
             p_col="fdr",
             title=f"Volcano Plot – {name1} vs {name2} (full)",
             outpath=outdir / f"{name1}_vs_{name2}_full_volcano.png",
-            fc_thresh=1.0,
+            fc_thresh=fc_thresh,
             sig_thresh=0.05,
             label_top_n=10
+            , show=show_plots
         )
 
     controlled_summary, controlled_per_rate = compare_datasets_growth_controlled_matched(
@@ -199,10 +204,11 @@ def main():
         model_compare,
         name1=name1,
         name2=name2,
-        outpath=outdir / f"{name1}_vs_{name2}_model_heatmap.png",
+        outpath=outdir / f"heatmaps/{name1}_vs_{name2}_model_heatmap.png",
         top_n=30,
         center_by_gene=True,
         sort_by="fdr"
+        , show=show_plots
     )
 
     plot_formate_vs_phosphate_simple_heatmap(
@@ -211,9 +217,10 @@ def main():
         model_compare,
         name1=name1,
         name2=name2,
-        outpath=outdir / f"{name1}_vs_{name2}_simple_heatmap.png",
+        outpath=outdir / f"heatmaps/{name1}_vs_{name2}_simple_heatmap.png",
         top_n=30,
         center_by_gene=False
+        , show=show_plots
     )
 
     model_compare.to_csv(
@@ -231,13 +238,56 @@ def main():
             p_col="fdr",
             title=f"Volcano Plot – {name1} vs {name2} (model growth-rate controlled)",
             outpath=outdir / f"{name1}_vs_{name2}_growth_controlled_model_volcano.png",
-            fc_thresh=1.0,
+            fc_thresh=fc_thresh,
             sig_thresh=0.05,
             label_top_n=10
+            , show=show_plots
         )
+
+    # Track targeted methanogenesis pathway genes
+    try:
+        print("Summarizing methanogenesis pathway genes...")
+        pathway_summary = summarize_pathway_across_datasets(df1_bio, df2_bio, METHANOGENESIS_GENES, name1, name2, outdir)
+        pathway_csv = outdir / f"methanogenesis_pathway_summary_{name1}_vs_{name2}.csv"
+        pathway_summary.to_csv(pathway_csv, index=False)
+
+        plot_pathway_log2fc(pathway_summary, outpath=outdir / f"methanogenesis_pathway_log2fc_{name1}_vs_{name2}.png", show=show_plots)
+
+        plot_pathway_growth_trends(df1_bio, df2_bio, METHANOGENESIS_GENES, name1, name2, outpath=outdir / f"methanogenesis_pathway_growth_trends_{name1}_vs_{name2}.png", show=show_plots)
+        print(f"Methanogenesis pathway summary and plots saved to {outdir}")
+    except Exception as e_path:
+        print(f"Failed to produce pathway summaries/plots: {e_path}")
+
+    # Run STRING-db enrichment on top model-selected genes (best FDR + effect)
+    try:
+        top_genes = model_compare.sort_values(["fdr", "dataset_effect_log2FC"], ascending=[True, False])[GENE_COL].head(100).tolist()
+        if top_genes:
+            print(f"Running STRING enrichment on top {len(top_genes)} model genes...")
+            tsv_path = outdir / "string_enrichment_top_model_genes.tsv"
+            enrich_df = run_string_enrichment(top_genes, species=2187, limit=500, output_path=str(tsv_path))
+            enrich_df.to_csv(outdir / "string_enrichment_top_model_genes.csv", index=False)
+            print("STRING enrichment saved to analysis_outputs/")
+
+            # automatically generate enrichment plots (bar + dotplot)
+            try:
+                print("Generating enrichment plots...")
+                made = make_enrichment_plots(str(tsv_path), outdir=outdir, prefix=tsv_path.stem, show=show_plots)
+                for p in made:
+                    print(f"Saved enrichment plot: {p}")
+            except Exception as e_plot:
+                print(f"Failed to create enrichment plots: {e_plot}")
+    except Exception as e:
+        print(f"STRING enrichment failed: {e}")
 
     print(f"\nDone. Outputs saved in: {outdir.resolve()}")
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run modular expression analysis")
+    parser.add_argument("--show-plots", action="store_true", help="Display plots interactively in addition to saving them")
+    parser.add_argument("--fc-thresh", type=float, default=0.5, help="Fold-change cutoff (absolute log2) for volcano and shared-hit filtering; default 0.5")
+    args = parser.parse_args()
+
+    main(show_plots=args.show_plots, fc_thresh=args.fc_thresh)

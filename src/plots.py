@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from utils import GENE_COL, safe_neglog10
 
 
@@ -10,10 +11,11 @@ def volcano_plot(
     p_col,
     title,
     outpath=None,
-    fc_thresh=1.0,
+    fc_thresh=0.5,
     sig_thresh=0.05,
     label_top_n=0,
-    gene_col=GENE_COL
+    gene_col=GENE_COL,
+    show=False
 ):
     """
     Make a volcano plot from any results table with effect size and p/FDR columns.
@@ -57,7 +59,12 @@ def volcano_plot(
     if outpath is not None:
         plt.savefig(outpath, dpi=300)
 
-    plt.show()
+    # only display the figure when explicitly requested; otherwise close it so it
+    # doesn't pop up in interactive environments
+    if show:
+        plt.show()
+    else:
+        plt.close()
 
 
 def plot_top_expressed_genes_heatmap(
@@ -66,7 +73,8 @@ def plot_top_expressed_genes_heatmap(
     outpath=None,
     top_n=30,
     center_by_gene=True,
-    gene_col=GENE_COL
+    gene_col=GENE_COL,
+    show=False
 ):
     """
     Make a heatmap of the top most expressed genes based on mean log2 expression.
@@ -126,10 +134,18 @@ def plot_top_expressed_genes_heatmap(
     plt.title(f"Top {top_n} Most Expressed Genes – {dataset_name}")
     plt.tight_layout()
 
-    if outpath is not None:
-        plt.savefig(outpath, dpi=300, bbox_inches="tight")
+    # ensure heatmaps go into analysis_outputs/heatmaps by default
+    if outpath is None:
+        outp = Path("analysis_outputs") / "heatmaps" / f"top_expressed_{dataset_name}.png"
+    else:
+        outp = Path(outpath)
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(outp, dpi=300, bbox_inches="tight")
 
-    plt.show()
+    if show:
+        plt.show()
+    else:
+        plt.close()
 
 
 def plot_formate_vs_phosphate_heatmap_from_model(
@@ -142,7 +158,8 @@ def plot_formate_vs_phosphate_heatmap_from_model(
     top_n=30,
     gene_col=GENE_COL,
     center_by_gene=True,
-    sort_by="fdr"
+    sort_by="fdr",
+    show=False
 ):
     """
     Heatmap comparing formate vs phosphate across shared growth rates.
@@ -228,10 +245,18 @@ def plot_formate_vs_phosphate_heatmap_from_model(
     plt.title(f"Top {len(gene_order)} Model-Based Genes: {name1} vs {name2}")
     plt.tight_layout()
 
-    if outpath is not None:
-        plt.savefig(outpath, dpi=300, bbox_inches="tight")
+    # default to heatmaps subfolder
+    if outpath is None:
+        outp = Path("analysis_outputs") / "heatmaps" / f"model_heatmap_{name1}_vs_{name2}.png"
+    else:
+        outp = Path(outpath)
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(outp, dpi=300, bbox_inches="tight")
 
-    plt.show()
+    if show:
+        plt.show()
+    else:
+        plt.close()
 
 
 def plot_formate_vs_phosphate_simple_heatmap(
@@ -243,7 +268,8 @@ def plot_formate_vs_phosphate_simple_heatmap(
     outpath=None,
     top_n=30,
     gene_col=GENE_COL,
-    center_by_gene=True
+    center_by_gene=True,
+    show=False
 ):
     """
     2-row heatmap:
@@ -321,7 +347,15 @@ def plot_formate_vs_phosphate_simple_heatmap(
 
     plt.tight_layout()
 
-    if outpath is not None:
-        plt.savefig(outpath, dpi=300, bbox_inches="tight")
+    # default to heatmaps subfolder
+    if outpath is None:
+        outp = Path("analysis_outputs") / "heatmaps" / f"simple_heatmap_{name1}_vs_{name2}.png"
+    else:
+        outp = Path(outpath)
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(outp, dpi=300, bbox_inches="tight")
 
-    plt.show()
+    if show:
+        plt.show()
+    else:
+        plt.close()
