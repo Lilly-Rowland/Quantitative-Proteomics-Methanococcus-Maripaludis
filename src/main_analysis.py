@@ -15,7 +15,7 @@ from plots import (
     plot_formate_vs_phosphate_simple_heatmap,
 )
 from stringdb import run_string_enrichment, make_enrichment_plots
-from pathways import METHANOGENESIS_GENES, summarize_pathway_across_datasets, plot_pathway_log2fc, plot_pathway_growth_trends
+from pathways import METHANOGENESIS_GENES, summarize_pathway_across_datasets, plot_pathway_log2fc
 
 
 def shared_significant_hits(df_a, df_b, label_a, label_b, fc_col="log2FC", fdr_col="fdr",
@@ -249,7 +249,7 @@ def main(show_plots=False, fc_thresh=0.5):
 
         plot_pathway_log2fc(pathway_summary, outpath=outdir / f"methanogenesis_pathway_log2fc_{name1}_vs_{name2}.png", show=show_plots)
 
-        plot_pathway_growth_trends(df1_bio, df2_bio, METHANOGENESIS_GENES, name1, name2, outpath=outdir / f"methanogenesis_pathway_growth_trends_{name1}_vs_{name2}.png", show=show_plots)
+        # plot_pathway_growth_trends(df1_bio, df2_bio, METHANOGENESIS_GENES, name1, name2, outpath=outdir / f"methanogenesis_pathway_growth_trends_{name1}_vs_{name2}.png", show=show_plots)
         print(f"Methanogenesis pathway summary and plots saved to {outdir}")
     except Exception as e_path:
         print(f"Failed to produce pathway summaries/plots: {e_path}")
