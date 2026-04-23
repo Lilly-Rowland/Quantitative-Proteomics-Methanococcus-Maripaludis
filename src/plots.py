@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from utils import GENE_COL, safe_neglog10
-
+from typing import Iterable, Optional
 # Visual theming: seaborn base style + a small set of pretty colors
 sns.set(style="whitegrid")
 POS_COLOR = "#E64B35"   # warm orange/red for positive effects
@@ -174,7 +174,6 @@ def plot_top_expressed_genes_heatmap(
     else:
         plt.close()
 
-
 def plot_formate_vs_phosphate_heatmap_from_model(
     df1_bio,
     df2_bio,
@@ -186,10 +185,16 @@ def plot_formate_vs_phosphate_heatmap_from_model(
     gene_col=GENE_COL,
     center_by_gene=True,
     sort_by="fdr",
+    aggregate_replicates=True,
+    show_significance=True,
     show=False
 ):
     """
     Heatmap comparing formate vs phosphate across shared growth rates.
+
+    Changes:
+    - aggregates biological replicates across each dataset/growth_rate/gene
+    - annotates gene labels with significance from model_results FDR
     """
     if model_results.empty:
         print("Skipping formate/phosphate heatmap: model_results is empty.")
@@ -222,7 +227,6 @@ def plot_formate_vs_phosphate_heatmap_from_model(
             rank_df["dataset_effect_log2FC"].abs().sort_values(ascending=False).index
         )
     else:
-        # default: prioritize significance, then stronger effect
         rank_df = rank_df.sort_values(
             ["fdr", "dataset_effect_log2FC"],
             ascending=[True, False],
@@ -236,11 +240,22 @@ def plot_formate_vs_phosphate_heatmap_from_model(
         print("Skipping formate/phosphate heatmap: no matching genes found in expression table.")
         return
 
-    heat_df["sample"] = (
-        heat_df["dataset"].astype(str) + "_" +
-        heat_df["growth_rate"].astype(str) + "_rep" +
-        heat_df["bio_rep"].astype(str)
-    )
+    # -------- AGGREGATE REPLICATES --------
+    if aggregate_replicates:
+        heat_df = (
+            heat_df.groupby([gene_col, "dataset", "growth_rate"], as_index=False)["log2_ratio"]
+            .mean()
+        )
+        heat_df["sample"] = (
+            heat_df["dataset"].astype(str) + "_" +
+            heat_df["growth_rate"].astype(str)
+        )
+    else:
+        heat_df["sample"] = (
+            heat_df["dataset"].astype(str) + "_" +
+            heat_df["growth_rate"].astype(str) + "_rep" +
+            heat_df["bio_rep"].astype(str)
+        )
 
     heatmap_data = heat_df.pivot_table(
         index=gene_col,
@@ -253,43 +268,226 @@ def plot_formate_vs_phosphate_heatmap_from_model(
     gene_order = [g for g in top_genes if g in heatmap_data.index]
     heatmap_data = heatmap_data.loc[gene_order]
 
+    # optional row-centering
     if center_by_gene:
         heatmap_plot = heatmap_data.sub(heatmap_data.mean(axis=1), axis=0)
         cbar_label = "Centered log2 expression"
     else:
         heatmap_plot = heatmap_data.copy()
-        cbar_label = "log2 expression"
+        cbar_label = "Mean log2 expression"
 
-    plt.figure(figsize=(max(10, heatmap_plot.shape[1] * 0.45), max(8, heatmap_plot.shape[0] * 0.3)))
+    # -------- SIGNIFICANCE LABELS --------
+    def sig_stars(fdr):
+        if pd.isna(fdr):
+            return ""
+        elif fdr < 0.001:
+            return "***"
+        elif fdr < 0.01:
+            return "**"
+        elif fdr < 0.05:
+            return "*"
+        elif fdr < 0.1:
+            return "·"
+        return ""
+
+    if show_significance:
+        fdr_map = rank_df.drop_duplicates(subset=[gene_col]).set_index(gene_col)["fdr"].to_dict()
+        y_labels = [f"{g} {sig_stars(fdr_map.get(g, np.nan))}" for g in heatmap_plot.index]
+    else:
+        y_labels = list(heatmap_plot.index)
+
+    plt.figure(figsize=(max(10, heatmap_plot.shape[1] * 0.6), max(8, heatmap_plot.shape[0] * 0.3)))
+
     cmap = DIV_CMAP
     try:
         cmap.set_bad("black")
     except Exception:
         pass
+
     masked = np.ma.masked_invalid(heatmap_plot.values)
+
     if center_by_gene:
         max_abs = np.nanmax(np.abs(heatmap_plot.values)) if heatmap_plot.size else None
-        if max_abs is None:
+        if max_abs is None or np.isnan(max_abs):
             im = plt.imshow(masked, aspect="auto", cmap=cmap)
         else:
             im = plt.imshow(masked, aspect="auto", cmap=cmap, vmin=-max_abs, vmax=max_abs)
     else:
         im = plt.imshow(masked, aspect="auto", cmap=cmap)
+
     plt.colorbar(im, label=cbar_label)
-
     plt.xticks(range(len(heatmap_plot.columns)), heatmap_plot.columns, rotation=90)
-    plt.yticks(range(len(heatmap_plot.index)), heatmap_plot.index)
+    plt.yticks(range(len(heatmap_plot.index)), y_labels)
 
-    plt.xlabel("Sample")
+    plt.xlabel("Condition")
     plt.ylabel("Gene")
     plt.title(f"Top {len(gene_order)} Model-Based Genes: {name1} vs {name2}")
+
+    if show_significance:
+        plt.suptitle("* FDR<0.05, ** FDR<0.01, *** FDR<0.001, · FDR<0.1", y=1.02, fontsize=9)
+
     plt.tight_layout()
 
-    # default to heatmaps subfolder
     if outpath is None:
         outp = Path("analysis_outputs") / "heatmaps" / f"model_heatmap_{name1}_vs_{name2}.png"
     else:
         outp = Path(outpath)
+
+    outp.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(outp, dpi=300, bbox_inches="tight")
+
+    if show:
+        plt.show()
+    else:
+        plt.close()
+        
+def plot_formate_vs_phosphate_simple_heatmap(
+    df1_bio,
+    df2_bio,
+    model_results,
+    name1="formate",
+    name2="phosphate",
+    outpath=None,
+    top_n=30,
+    gene_col=GENE_COL,
+    center_by_gene=False,
+    show_significance=True,
+    show_direction=True,
+    show=False
+):
+    """
+    2-row heatmap:
+    Rows = [formate, phosphate]
+    Columns = genes (top from model)
+    Values = mean log2 expression per dataset
+
+    Reference:
+    - Model selection: dataset_effect_log2FC = formate - phosphate
+      so positive effect means higher in formate, negative means higher in phosphate.
+    - Heatmap colors:
+        * center_by_gene=False -> absolute mean log2 expression
+        * center_by_gene=True  -> centered within each gene across the two conditions
+    """
+
+    if model_results.empty:
+        print("Skipping heatmap: model_results empty.")
+        return
+
+    req_cols = {gene_col, "dataset_effect_log2FC", "fdr"}
+    if not req_cols.issubset(model_results.columns):
+        print("Skipping heatmap: model_results missing required columns.")
+        return
+
+    rank_df = (
+        model_results.copy()
+        .dropna(subset=[gene_col, "dataset_effect_log2FC", "fdr"])
+        .assign(abs_effect=lambda d: d["dataset_effect_log2FC"].abs())
+        .sort_values(["fdr", "abs_effect"], ascending=[True, False])
+    )
+
+    top_genes = rank_df[gene_col].head(top_n).tolist()
+    if not top_genes:
+        print("Skipping heatmap: no top genes found.")
+        return
+
+    mean1 = (
+        df1_bio[df1_bio[gene_col].isin(top_genes)]
+        .groupby(gene_col)["log2_ratio"]
+        .mean()
+        .rename(name1)
+    )
+
+    mean2 = (
+        df2_bio[df2_bio[gene_col].isin(top_genes)]
+        .groupby(gene_col)["log2_ratio"]
+        .mean()
+        .rename(name2)
+    )
+
+    heatmap_data = pd.concat([mean1, mean2], axis=1).T
+
+    if heatmap_data.empty:
+        print("Skipping heatmap: no overlapping genes.")
+        return
+
+    ordered_genes = [g for g in top_genes if g in heatmap_data.columns]
+    heatmap_data = heatmap_data[ordered_genes]
+
+    if center_by_gene:
+        heatmap_plot = heatmap_data - heatmap_data.mean(axis=0)
+        cbar_label = "Centered log2 expression"
+    else:
+        heatmap_plot = heatmap_data.copy()
+        cbar_label = "Mean log2 expression"
+
+    def sig_stars(fdr):
+        if pd.isna(fdr):
+            return ""
+        if fdr < 0.001:
+            return "***"
+        if fdr < 0.01:
+            return "**"
+        if fdr < 0.05:
+            return "*"
+        if fdr < 0.1:
+            return "·"
+        return ""
+
+    fdr_map = rank_df.drop_duplicates(subset=[gene_col]).set_index(gene_col)["fdr"].to_dict()
+    effect_map = rank_df.drop_duplicates(subset=[gene_col]).set_index(gene_col)["dataset_effect_log2FC"].to_dict()
+
+    x_labels = []
+    for g in heatmap_plot.columns:
+        label = g
+        if show_direction:
+            effect = effect_map.get(g, np.nan)
+            if pd.notna(effect):
+                label += " ↑F" if effect > 0 else " ↑P"
+        if show_significance:
+            label += sig_stars(fdr_map.get(g, np.nan))
+        x_labels.append(label)
+
+    plt.figure(figsize=(max(10, len(heatmap_plot.columns) * 0.45), 3.2))
+
+    cmap = DIV_CMAP
+    try:
+        cmap.set_bad("black")
+    except Exception:
+        pass
+
+    masked = np.ma.masked_invalid(heatmap_plot.values)
+
+    if center_by_gene:
+        max_abs = np.nanmax(np.abs(heatmap_plot.values)) if heatmap_plot.size else None
+        if max_abs is None or np.isnan(max_abs):
+            im = plt.imshow(masked, aspect="auto", cmap=cmap)
+        else:
+            im = plt.imshow(masked, aspect="auto", cmap=cmap, vmin=-max_abs, vmax=max_abs)
+    else:
+        im = plt.imshow(masked, aspect="auto", cmap=cmap)
+
+    plt.colorbar(im, label=cbar_label)
+    plt.xticks(range(len(heatmap_plot.columns)), x_labels, rotation=90)
+    plt.yticks(range(len(heatmap_plot.index)), heatmap_plot.index)
+
+    plt.xlabel("Gene")
+    plt.ylabel("Condition")
+    plt.title(f"{name1} vs {name2} (Model-selected genes)")
+
+    if show_significance or show_direction:
+        plt.suptitle(
+            "↑F: higher in formate, ↑P: higher in phosphate; · FDR<0.1, * FDR<0.05, ** FDR<0.01, *** FDR<0.001",
+            y=1.04,
+            fontsize=9
+        )
+
+    plt.tight_layout()
+
+    if outpath is None:
+        outp = Path("analysis_outputs") / "heatmaps" / f"simple_heatmap_{name1}_vs_{name2}.png"
+    else:
+        outp = Path(outpath)
+
     outp.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(outp, dpi=300, bbox_inches="tight")
 
@@ -298,8 +496,7 @@ def plot_formate_vs_phosphate_heatmap_from_model(
     else:
         plt.close()
 
-
-def plot_formate_vs_phosphate_simple_heatmap(
+def splot_formate_vs_phosphate_simple_heatmap(
     df1_bio,
     df2_bio,
     model_results,

@@ -1,0 +1,181 @@
+label,p_value_formate,fdr_formate,description,category,venn_region,p_value_phosphate,fdr_phosphate
+"Macromolecule biosynthetic process, and Protein transport [NetworkNeighborAL]",7.89e-19,2.91e-16,"Macromolecule biosynthetic process, and Protein transport",NetworkNeighborAL,formate_only,,
+"Gene expression, and Intracellular membrane-bounded organelle [NetworkNeighborAL]",4.92e-17,6.05e-15,"Gene expression, and Intracellular membrane-bounded organelle",NetworkNeighborAL,formate_only,,
+"Ribonucleoprotein, and Translation regulator activity [NetworkNeighborAL]",5.42e-17,6.05e-15,"Ribonucleoprotein, and Translation regulator activity",NetworkNeighborAL,formate_only,,
+"Ribosome, and Translation regulator activity [NetworkNeighborAL]",8.69e-16,4.58e-14,"Ribosome, and Translation regulator activity",NetworkNeighborAL,formate_only,,
+Macromolecule biosynthetic process [Process],1.06e-13,8.83e-11,Macromolecule biosynthetic process,Process,formate_only,,
+Protein metabolic process [Process],6.8e-13,2.83e-10,Protein metabolic process,Process,formate_only,,
+Ribosome [NetworkNeighborAL],7.45e-12,3.06e-10,Ribosome,NetworkNeighborAL,formate_only,,
+Ribonucleoprotein [Keyword],7.45e-12,1.21e-09,Ribonucleoprotein,Keyword,formate_only,,
+Macromolecule metabolic process [Process],2.3e-11,6.38e-09,Macromolecule metabolic process,Process,formate_only,,
+Cellular macromolecule biosynthetic process [Process],2.49e-11,6.38e-09,Cellular macromolecule biosynthetic process,Process,formate_only,,
+Gene expression [Process],3.09e-11,6.38e-09,Gene expression,Process,formate_only,,
+Translation [Process],3.65e-11,6.38e-09,Translation,Process,formate_only,,
+Ribosomal protein [Keyword],5.13e-11,4.16e-09,Ribosomal protein,Keyword,formate_only,,
+Ribosome [KEGG],5.13e-11,4.11e-09,Ribosome,KEGG,formate_only,,
+Ribosome [Component],5.44e-11,6.53e-09,Ribosome,Component,formate_only,,
+Structural constituent of ribosome [Function],7.53e-11,4.26e-08,Structural constituent of ribosome,Function,formate_only,,
+Structural molecule activity [Function],8.42e-11,4.26e-08,Structural molecule activity,Function,formate_only,,
+Intracellular non-membrane-bounded organelle [Component],9.45e-11,6.53e-09,Intracellular non-membrane-bounded organelle,Component,formate_only,,
+Organelle [Component],9.98e-11,6.53e-09,Organelle,Component,formate_only,,
+Non-membrane-bounded organelle [Component],1.1e-10,6.53e-09,Non-membrane-bounded organelle,Component,formate_only,,
+Cellular amide metabolic process [Process],1.45e-10,1.34e-08,Cellular amide metabolic process,Process,formate_only,,
+Amide biosynthetic process [Process],1.73e-10,1.44e-08,Amide biosynthetic process,Process,formate_only,,
+Intracellular organelle [Component],2.92e-10,6.53e-09,Intracellular organelle,Component,formate_only,,
+"Methane metabolism, and 4Fe-4S dicluster domain [NetworkNeighborAL]",6.87e-10,2.31e-08,"Methane metabolism, and 4Fe-4S dicluster domain",NetworkNeighborAL,formate_only,,
+Cellular macromolecule metabolic process [Process],4.99e-09,2.77e-07,Cellular macromolecule metabolic process,Process,formate_only,,
+Organelle [COMPARTMENTS],1.62e-07,3.21e-05,Organelle,COMPARTMENTS,formate_only,,
+Intracellular [COMPARTMENTS],1.95e-07,3.21e-05,Intracellular,COMPARTMENTS,formate_only,,
+Primary metabolic process [Process],2.3e-07,1.06e-05,Primary metabolic process,Process,formate_only,,
+Intracellular organelle [COMPARTMENTS],4.66e-07,3.21e-05,Intracellular organelle,COMPARTMENTS,formate_only,,
+RNA binding [Function],5.07e-07,9.54e-05,RNA binding,Function,formate_only,,
+Protein-containing complex [Component],5.69e-07,9.75e-06,Protein-containing complex,Component,formate_only,,
+Nitrogen compound metabolic process [Process],7.58e-07,3.32e-05,Nitrogen compound metabolic process,Process,formate_only,,
+Cellular anatomical entity [Component],1.03e-06,1.55e-05,Cellular anatomical entity,Component,formate_only,,
+rRNA binding [Function],1.28e-06,0.00018,rRNA binding,Function,formate_only,,
+RNA-binding [Keyword],1.61e-06,8.7e-05,RNA-binding,Keyword,formate_only,,
+Protein-containing complex [COMPARTMENTS],2.2e-06,0.00011,Protein-containing complex,COMPARTMENTS,formate_only,,
+rRNA-binding [Keyword],2.67e-06,0.00011,rRNA-binding,Keyword,formate_only,,
+Nucleic acid binding [Function],3.25e-06,0.00037,Nucleic acid binding,Function,formate_only,,
+Non-membrane-bounded organelle [COMPARTMENTS],4.55e-06,0.00018,Non-membrane-bounded organelle,COMPARTMENTS,formate_only,,
+Ribonucleoprotein complex [Component],9.86e-06,0.00013,Ribonucleoprotein complex,Component,formate_only,,
+Intracellular non-membrane-bounded organelle [COMPARTMENTS],1.88e-05,0.00062,Intracellular non-membrane-bounded organelle,COMPARTMENTS,formate_only,,
+Cellular nitrogen compound metabolic process [Process],2.64e-05,0.00095,Cellular nitrogen compound metabolic process,Process,formate_only,,
+Cellular anatomical entity [COMPARTMENTS],4.32e-05,0.0012,Cellular anatomical entity,COMPARTMENTS,formate_only,,
+Ribonucleoprotein complex [COMPARTMENTS],7.86e-05,0.0019,Ribonucleoprotein complex,COMPARTMENTS,formate_only,,
+Ribosome [COMPARTMENTS],0.0001,0.0023,Ribosome,COMPARTMENTS,formate_only,,
+"Glycolysis / Gluconeogenesis, and Carbon fixation pathways in prokaryotes [NetworkNeighborAL]",0.00022,0.0039,"Glycolysis / Gluconeogenesis, and Carbon fixation pathways in prokaryotes",NetworkNeighborAL,formate_only,,
+Ribosomal subunit [Component],0.00023,0.0027,Ribosomal subunit,Component,formate_only,,
+"Carbon fixation pathways in prokaryotes, and Valine, leucine and isoleucine degradation [NetworkNeighborAL]",0.00035,0.0059,"Carbon fixation pathways in prokaryotes, and Valine, leucine and isoleucine degradation",NetworkNeighborAL,formate_only,,
+Cytoplasm [COMPARTMENTS],0.00037,0.0073,Cytoplasm,COMPARTMENTS,formate_only,,
+Organic cyclic compound binding [Function],0.00062,0.0439,Organic cyclic compound binding,Function,formate_only,,
+Heterocyclic compound binding [Function],0.00062,0.0439,Heterocyclic compound binding,Function,formate_only,,
+Regulation of protein metabolic process [Process],0.001,0.0235,Regulation of protein metabolic process,Process,formate_only,,
+Glycolysis / Gluconeogenesis [KEGG],0.001,0.0115,Glycolysis / Gluconeogenesis,KEGG,formate_only,,
+Regulation of translation [Process],0.0015,0.033,Regulation of translation,Process,formate_only,,
+"Prosthetic group metabolic process, and Molybdate ion transport [NetworkNeighborAL]",0.0015,0.0203,"Prosthetic group metabolic process, and Molybdate ion transport",NetworkNeighborAL,formate_only,,
+"Mixed, incl. TPR repeat, and Protein folding [NetworkNeighborAL]",0.0018,0.0238,"Mixed, incl. TPR repeat, and Protein folding",NetworkNeighborAL,formate_only,,
+Cytosolic ribosome [COMPARTMENTS],0.0019,0.0351,Cytosolic ribosome,COMPARTMENTS,formate_only,,
+"Mixed, incl. Ferredoxin hydrogenase complex, and NADH dehydrogenase [NetworkNeighborAL]",0.0019,0.0248,"Mixed, incl. Ferredoxin hydrogenase complex, and NADH dehydrogenase",NetworkNeighborAL,formate_only,,
+"Mixed, incl. Preribosome, and rRNA processing [NetworkNeighborAL]",0.0021,0.026,"Mixed, incl. Preribosome, and rRNA processing",NetworkNeighborAL,formate_only,,
+Ribosomal subunit [COMPARTMENTS],0.0028,0.0466,Ribosomal subunit,COMPARTMENTS,formate_only,,
+Oxidoreductase complex [COMPARTMENTS],0.003,0.0466,Oxidoreductase complex,COMPARTMENTS,formate_only,,
+Catalytic complex [COMPARTMENTS],0.0033,0.0469,Catalytic complex,COMPARTMENTS,formate_only,,
+"Mixed, incl. Prosthetic group metabolic process, and Nitrogen metabolism [NetworkNeighborAL]",0.0033,0.0361,"Mixed, incl. Prosthetic group metabolic process, and Nitrogen metabolism",NetworkNeighborAL,formate_only,,
+Citrate cycle (TCA cycle) [NetworkNeighborAL],0.0041,0.0432,Citrate cycle (TCA cycle),NetworkNeighborAL,formate_only,,
+"Transferase complex, transferring phosphorus-containing groups [Component]",0.0043,0.0473,"Transferase complex, transferring phosphorus-containing groups",Component,formate_only,,
+DNA-directed RNA polymerase complex [Component],0.0044,0.0473,DNA-directed RNA polymerase complex,Component,formate_only,,
+Intracellular protein-containing complex [Component],0.0057,0.0487,Intracellular protein-containing complex,Component,formate_only,,
+Catalytic complex [Component],0.0058,0.0487,Catalytic complex,Component,formate_only,,
+Transferase complex [Component],0.0065,0.0488,Transferase complex,Component,formate_only,,
+Intracellular anatomical structure [Component],1.37e-10,6.53e-09,Intracellular anatomical structure,Component,overlap,0.00033,0.02
+Carbon metabolism [KEGG],4.95e-10,1.98e-08,Carbon metabolism,KEGG,overlap,2.51e-11,5.02e-10
+Organic substance biosynthetic process [Process],6.35e-10,4.8e-08,Organic substance biosynthetic process,Process,overlap,6.78e-12,2.82e-09
+Metabolic process [Process],1.36e-09,9.42e-08,Metabolic process,Process,overlap,5.84e-06,0.00017
+Biosynthetic process [Process],1.38e-09,9.42e-08,Biosynthetic process,Process,overlap,1.24e-11,3.45e-09
+Cellular biosynthetic process [Process],1.86e-09,1.1e-07,Cellular biosynthetic process,Process,overlap,1.82e-12,1.51e-09
+Organic substance metabolic process [Process],6.06e-09,3.15e-07,Organic substance metabolic process,Process,overlap,6.33e-06,0.00017
+Microbial metabolism in diverse environments [KEGG],8.99e-09,2.4e-07,Microbial metabolism in diverse environments,KEGG,overlap,7.71e-15,3.08e-13
+"Methane metabolism, and Carbonic anhydrase [NetworkNeighborAL]",1.37e-08,3.88e-07,"Methane metabolism, and Carbonic anhydrase",NetworkNeighborAL,overlap,7.26e-16,2.68e-13
+Cellular metabolic process [Process],2.51e-08,1.23e-06,Cellular metabolic process,Process,overlap,1.17e-07,1.22e-05
+"Mixed, incl. Methane metabolism, and Plasma membrane [NetworkNeighborAL]",1.46e-07,3.59e-06,"Mixed, incl. Methane metabolism, and Plasma membrane",NetworkNeighborAL,overlap,2.25e-07,6.37e-06
+"Mixed, incl. Methane metabolism, and 4Fe-4S dicluster domain [NetworkNeighborAL]",1.79e-07,4.12e-06,"Mixed, incl. Methane metabolism, and 4Fe-4S dicluster domain",NetworkNeighborAL,overlap,6.22e-12,7.65e-10
+Cellular process [Process],8.77e-07,3.65e-05,Cellular process,Process,overlap,1.88e-05,0.00038
+Methane metabolism [KEGG],1.83e-06,3.66e-05,Methane metabolism,KEGG,overlap,1.64e-12,4.38e-11
+Cellular nitrogen compound biosynthetic process [Process],3.04e-06,0.00012,Cellular nitrogen compound biosynthetic process,Process,overlap,0.0016,0.0194
+Organonitrogen compound metabolic process [Process],7.34e-06,0.00028,Organonitrogen compound metabolic process,Process,overlap,0.00037,0.0048
+Binding [Function],4.18e-05,0.0039,Binding,Function,overlap,0.00013,0.0143
+Methane metabolism [NetworkNeighborAL],4.99e-05,0.001,Methane metabolism,NetworkNeighborAL,overlap,1.75e-09,7.17e-08
+Oxidoreductase activity [Function],5.57e-05,0.0045,Oxidoreductase activity,Function,overlap,8.54e-09,4.83e-06
+"Mixed, incl. Methanogenesis, and Radical SAM superfamily [NetworkNeighborAL]",5.93e-05,0.0012,"Mixed, incl. Methanogenesis, and Radical SAM superfamily",NetworkNeighborAL,overlap,1.23e-07,4.13e-06
+"Mixed, incl. Methanogenesis, and ABC transporter-like, conserved site [NetworkNeighborAL]",0.00011,0.0021,"Mixed, incl. Methanogenesis, and ABC transporter-like, conserved site",NetworkNeighborAL,overlap,4.13e-07,1.09e-05
+Organonitrogen compound biosynthetic process [Process],0.00013,0.0044,Organonitrogen compound biosynthetic process,Process,overlap,4.91e-06,0.00015
+Cellular respiration [Process],0.00034,0.0115,Cellular respiration,Process,overlap,3.48e-08,5.78e-06
+Carbon fixation pathways in prokaryotes [KEGG],0.00035,0.0056,Carbon fixation pathways in prokaryotes,KEGG,overlap,0.0033,0.0187
+Methanogenesis [Process],0.0005,0.0154,Methanogenesis,Process,overlap,2.82e-07,2.13e-05
+Pyruvate metabolism [KEGG],0.00071,0.0094,Pyruvate metabolism,KEGG,overlap,0.001,0.0081
+Generation of precursor metabolites and energy [Process],0.00089,0.0213,Generation of precursor metabolites and energy,Process,overlap,6.78e-06,0.00017
+Carbon fixation pathways in prokaryotes [NetworkNeighborAL],0.00098,0.0151,Carbon fixation pathways in prokaryotes,NetworkNeighborAL,overlap,0.0025,0.0307
+"Methanogenesis, and Amidohydrolase 3 [NetworkNeighborAL]",0.00098,0.0151,"Methanogenesis, and Amidohydrolase 3",NetworkNeighborAL,overlap,1.23e-05,0.00025
+Citrate cycle (TCA cycle) [KEGG],0.0021,0.0211,Citrate cycle (TCA cycle),KEGG,overlap,0.0069,0.0323
+Metabolic pathways [KEGG],0.0027,0.0242,Metabolic pathways,KEGG,overlap,4.38e-19,3.5e-17
+Methanogenesis [NetworkNeighborAL],0.0028,0.0336,Methanogenesis,NetworkNeighborAL,overlap,3.73e-05,0.00066
+"Mixed, incl. CoB--CoM heterodisulfide reductase activity, and Formylmethanofuran dehydrogenase activity [NetworkNeighborAL]",0.0028,0.0336,"Mixed, incl. CoB--CoM heterodisulfide reductase activity, and Formylmethanofuran dehydrogenase activity",NetworkNeighborAL,overlap,3.73e-05,0.00066
+"Methanogenesis, and Radical SAM superfamily [NetworkNeighborAL]",0.003,0.0339,"Methanogenesis, and Radical SAM superfamily",NetworkNeighborAL,overlap,4.55e-07,1.12e-05
+Butanoate metabolism [KEGG],0.0043,0.0344,Butanoate metabolism,KEGG,overlap,0.0002,0.002
+"Biosynthesis of secondary metabolites, and Nucleotide biosynthetic process [NetworkNeighborAL]",,,"Biosynthesis of secondary metabolites, and Nucleotide biosynthetic process",NetworkNeighborAL,phosphate_only,8.8e-12,8.12e-10
+"Cellular amino acid biosynthetic process, and Ribonucleoside monophosphate biosynthetic process [NetworkNeighborAL]",,,"Cellular amino acid biosynthetic process, and Ribonucleoside monophosphate biosynthetic process",NetworkNeighborAL,phosphate_only,4.91e-11,3.62e-09
+"Biosynthesis of amino acids, and Ribonucleoside monophosphate biosynthetic process [NetworkNeighborAL]",,,"Biosynthesis of amino acids, and Ribonucleoside monophosphate biosynthetic process",NetworkNeighborAL,phosphate_only,6.8e-11,4.18e-09
+Small molecule metabolic process [Process],,,Small molecule metabolic process,Process,phosphate_only,1.22e-09,2.53e-07
+Ribonucleoside monophosphate biosynthetic process [Process],,,Ribonucleoside monophosphate biosynthetic process,Process,phosphate_only,9.05e-08,1.08e-05
+"Ribonucleoside monophosphate biosynthetic process, and CTP metabolic process [NetworkNeighborAL]",,,"Ribonucleoside monophosphate biosynthetic process, and CTP metabolic process",NetworkNeighborAL,phosphate_only,1.41e-07,4.32e-06
+Catalytic activity [Function],,,Catalytic activity,Function,phosphate_only,2.09e-07,5.91e-05
+Nucleoside monophosphate metabolic process [Process],,,Nucleoside monophosphate metabolic process,Process,phosphate_only,3.92e-07,2.13e-05
+Biosynthesis of secondary metabolites [KEGG],,,Biosynthesis of secondary metabolites,KEGG,phosphate_only,6.21e-07,9.94e-06
+Ribose phosphate biosynthetic process [Process],,,Ribose phosphate biosynthetic process,Process,phosphate_only,8.31e-07,3.46e-05
+Ribonucleotide biosynthetic process [Process],,,Ribonucleotide biosynthetic process,Process,phosphate_only,1.59e-06,6.31e-05
+Nucleotide biosynthetic process [Process],,,Nucleotide biosynthetic process,Process,phosphate_only,1.73e-06,6.56e-05
+Organic acid metabolic process [Process],,,Organic acid metabolic process,Process,phosphate_only,1.74e-06,6.56e-05
+Nucleobase-containing compound biosynthetic process [Process],,,Nucleobase-containing compound biosynthetic process,Process,phosphate_only,1.84e-06,6.56e-05
+Carboxylic acid biosynthetic process [Process],,,Carboxylic acid biosynthetic process,Process,phosphate_only,3.32e-06,0.00011
+"Branched-chain amino acid metabolic process, and Threonine metabolic process [NetworkNeighborAL]",,,"Branched-chain amino acid metabolic process, and Threonine metabolic process",NetworkNeighborAL,phosphate_only,3.79e-06,8.75e-05
+2-Oxocarboxylic acid metabolism [KEGG],,,2-Oxocarboxylic acid metabolism,KEGG,phosphate_only,4.46e-06,5.95e-05
+Carbohydrate derivative biosynthetic process [Process],,,Carbohydrate derivative biosynthetic process,Process,phosphate_only,4.83e-06,0.00015
+Ribonucleoside monophosphate biosynthetic process [NetworkNeighborAL],,,Ribonucleoside monophosphate biosynthetic process,NetworkNeighborAL,phosphate_only,6.11e-06,0.00013
+Purine ribonucleoside monophosphate biosynthetic process [Process],,,Purine ribonucleoside monophosphate biosynthetic process,Process,phosphate_only,6.11e-06,0.00017
+Purine biosynthesis [Keyword],,,Purine biosynthesis,Keyword,phosphate_only,9.14e-06,0.0015
+Purine metabolism [KEGG],,,Purine metabolism,KEGG,phosphate_only,9.84e-06,0.00011
+Carboxylic acid metabolic process [Process],,,Carboxylic acid metabolic process,Process,phosphate_only,1.07e-05,0.00024
+"2-Oxocarboxylic acid metabolism, and Lysine biosynthesis [NetworkNeighborAL]",,,"2-Oxocarboxylic acid metabolism, and Lysine biosynthesis",NetworkNeighborAL,phosphate_only,1.54e-05,0.0003
+Ribose phosphate metabolic process [Process],,,Ribose phosphate metabolic process,Process,phosphate_only,1.61e-05,0.00034
+Alpha-amino acid metabolic process [Process],,,Alpha-amino acid metabolic process,Process,phosphate_only,1.65e-05,0.00034
+Cytoplasm [Component],,,Cytoplasm,Component,phosphate_only,1.67e-05,0.002
+Oxidoreductase [Keyword],,,Oxidoreductase,Keyword,phosphate_only,2.05e-05,0.0017
+Iron-sulfur cluster binding [Function],,,Iron-sulfur cluster binding,Function,phosphate_only,2.51e-05,0.0047
+Ribonucleotide metabolic process [Process],,,Ribonucleotide metabolic process,Process,phosphate_only,2.88e-05,0.00057
+"Mixed, incl. sno(s)RNA-containing ribonucleoprotein complex, and Transcription preinitiation complex [NetworkNeighborAL]",,,"Mixed, incl. sno(s)RNA-containing ribonucleoprotein complex, and Transcription preinitiation complex",NetworkNeighborAL,phosphate_only,3.02e-05,0.00056
+Nucleotide metabolic process [Process],,,Nucleotide metabolic process,Process,phosphate_only,3.09e-05,0.0006
+Alpha-amino acid biosynthetic process [Process],,,Alpha-amino acid biosynthetic process,Process,phosphate_only,3.83e-05,0.00071
+Branched-chain amino acid metabolic process [NetworkNeighborAL],,,Branched-chain amino acid metabolic process,NetworkNeighborAL,phosphate_only,4.96e-05,0.0008
+Heterocycle biosynthetic process [Process],,,Heterocycle biosynthetic process,Process,phosphate_only,5.71e-05,0.001
+Branched-chain amino acid biosynthetic process [Process],,,Branched-chain amino acid biosynthetic process,Process,phosphate_only,6.2e-05,0.0011
+"Mixed, incl. Oxidoreductase activity, acting on hydrogen as donor, and Selenocysteine [NetworkNeighborAL]",,,"Mixed, incl. Oxidoreductase activity, acting on hydrogen as donor, and Selenocysteine",NetworkNeighborAL,phosphate_only,6.8e-05,0.001
+Organophosphate biosynthetic process [Process],,,Organophosphate biosynthetic process,Process,phosphate_only,7.2e-05,0.0012
+Carbohydrate derivative metabolic process [Process],,,Carbohydrate derivative metabolic process,Process,phosphate_only,0.00011,0.0018
+Cellular amino acid biosynthetic process [Process],,,Cellular amino acid biosynthetic process,Process,phosphate_only,0.00012,0.0019
+Organic cyclic compound biosynthetic process [Process],,,Organic cyclic compound biosynthetic process,Process,phosphate_only,0.00013,0.002
+Biosynthesis of amino acids [NetworkNeighborAL],,,Biosynthesis of amino acids,NetworkNeighborAL,phosphate_only,0.00015,0.0022
+Cellular amino acid metabolic process [Process],,,Cellular amino acid metabolic process,Process,phosphate_only,0.00016,0.0025
+Methanogenesis [Keyword],,,Methanogenesis,Keyword,phosphate_only,0.00018,0.0096
+Purine ribonucleotide biosynthetic process [Process],,,Purine ribonucleotide biosynthetic process,Process,phosphate_only,0.00019,0.0029
+IMP biosynthetic process [Process],,,IMP biosynthetic process,Process,phosphate_only,0.0002,0.0029
+"Ligase activity, forming carbon-nitrogen bonds [Function]",,,"Ligase activity, forming carbon-nitrogen bonds",Function,phosphate_only,0.0002,0.0188
+Small molecule binding [Function],,,Small molecule binding,Function,phosphate_only,0.00023,0.0188
+Small molecule biosynthetic process [Process],,,Small molecule biosynthetic process,Process,phosphate_only,0.00024,0.0034
+"Oxidoreductase activity, acting on hydrogen as donor [Function]",,,"Oxidoreductase activity, acting on hydrogen as donor",Function,phosphate_only,0.00025,0.0188
+Aromatic compound biosynthetic process [Process],,,Aromatic compound biosynthetic process,Process,phosphate_only,0.00026,0.0036
+Purine biosynthesis [NetworkNeighborAL],,,Purine biosynthesis,NetworkNeighborAL,phosphate_only,0.00031,0.0044
+"Mixed, incl. sno(s)RNA-containing ribonucleoprotein complex, and Type II secretion system (T2SS), protein F [NetworkNeighborAL]",,,"Mixed, incl. sno(s)RNA-containing ribonucleoprotein complex, and Type II secretion system (T2SS), protein F",NetworkNeighborAL,phosphate_only,0.00031,0.0044
+"Methanogenesis, from carbon dioxide [Process]",,,"Methanogenesis, from carbon dioxide",Process,phosphate_only,0.00031,0.0042
+Sulfur compound biosynthetic process [Process],,,Sulfur compound biosynthetic process,Process,phosphate_only,0.00034,0.0044
+"Valine, leucine and isoleucine biosynthesis [KEGG]",,,"Valine, leucine and isoleucine biosynthesis",KEGG,phosphate_only,0.0004,0.0036
+De novo IMP biosynthetic process [Process],,,De novo IMP biosynthetic process,Process,phosphate_only,0.0004,0.0052
+Organophosphate metabolic process [Process],,,Organophosphate metabolic process,Process,phosphate_only,0.00054,0.0068
+Sulfur compound metabolic process [Process],,,Sulfur compound metabolic process,Process,phosphate_only,0.00089,0.0111
+One-carbon metabolism [Keyword],,,One-carbon metabolism,Keyword,phosphate_only,0.00093,0.0376
+"Mixed, incl. Cell projection, and Signaling [NetworkNeighborAL]",,,"Mixed, incl. Cell projection, and Signaling",NetworkNeighborAL,phosphate_only,0.001,0.0127
+One-carbon metabolic process [Process],,,One-carbon metabolic process,Process,phosphate_only,0.0014,0.0166
+Biosynthesis of amino acids [KEGG],,,Biosynthesis of amino acids,KEGG,phosphate_only,0.0016,0.0114
+Purine ribonucleotide metabolic process [Process],,,Purine ribonucleotide metabolic process,Process,phosphate_only,0.0017,0.0204
+Leucine biosynthetic process [Process],,,Leucine biosynthetic process,Process,phosphate_only,0.0021,0.0241
+Propanoate metabolism [KEGG],,,Propanoate metabolism,KEGG,phosphate_only,0.0021,0.014
+Phosphorus metabolic process [Process],,,Phosphorus metabolic process,Process,phosphate_only,0.0023,0.0251
+Phosphate-containing compound metabolic process [Process],,,Phosphate-containing compound metabolic process,Process,phosphate_only,0.0024,0.0257
+Tetrahydromethanopterin S-methyltransferase activity [NetworkNeighborAL],,,Tetrahydromethanopterin S-methyltransferase activity,NetworkNeighborAL,phosphate_only,0.0026,0.0313
+"Coenzyme F420 hydrogenase activity, and Peptidase A31, coenzyme F420-reducing hydrogenase delta subunit [NetworkNeighborAL]",,,"Coenzyme F420 hydrogenase activity, and Peptidase A31, coenzyme F420-reducing hydrogenase delta subunit",NetworkNeighborAL,phosphate_only,0.0026,0.0313
+Biotin metabolism [KEGG],,,Biotin metabolism,KEGG,phosphate_only,0.0026,0.0162
+C5-Branched dibasic acid metabolism [KEGG],,,C5-Branched dibasic acid metabolism,KEGG,phosphate_only,0.0033,0.0187
+Isoleucine biosynthetic process [Process],,,Isoleucine biosynthetic process,Process,phosphate_only,0.0043,0.0463
+"Valine, leucine and isoleucine biosynthesis [NetworkNeighborAL]",,,"Valine, leucine and isoleucine biosynthesis",NetworkNeighborAL,phosphate_only,0.0043,0.0465
+Lysine biosynthesis [KEGG],,,Lysine biosynthesis,KEGG,phosphate_only,0.0051,0.0255
+Pyrimidine metabolism [KEGG],,,Pyrimidine metabolism,KEGG,phosphate_only,0.0107,0.0475
