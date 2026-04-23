@@ -1,6 +1,6 @@
 # Proteomics Analysis Pipeline
 
-Simple pipeline to compare **formate vs phosphate** proteomics data.
+Compare **formate vs phosphate** proteomics data.
 
 ## Workflow
 
